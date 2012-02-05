@@ -11,10 +11,13 @@ If you have a `Product` model and your instance is about Digital Cameras, you ma
 
 Clone django-metadata somewhere:
 
-`git clone git://github.com/rafaelsdm/django-metadata.git`
+````bash
+git clone git://github.com/rafaelsdm/django-metadata.git
+```
 
 
 Add `django-metadata` into `PYTHONPATH`:
+
 ```bash
 export PYTHONPATH=$PYTHONPATH:/somewhere/django-metadata
 ```
@@ -72,7 +75,8 @@ So it will check if `mymodel` object has the metadata `something` into it
 This is not a replacement for fields into models, you should use it when some records have some data that other records (in the same table) have not.
 
 Works with Django:
- * 1.0.x
- * 1.1.x
- * 1.2.x
- * 1.3.x
+
+* 1.0.x
+* 1.1.x
+* 1.2.x
+* 1.3.x
