@@ -31,5 +31,24 @@ You can also iterate over .[iter]items()
 ...     print name, '=', value
 plurk_user = pathiene
 twitter_screen_name = rafaelsdm
+
+>>> test.metadata['setitem'] = 'also works'
+>>> test.metadata['setitem']
+u'also works'
+
+You can even get objects with an specific metadata information
+>>> for x in xrange(30):
+...     testN = TestMetaData(foo='bar %x'%(x))
+...     testN.save()
+...     if x%3==0:
+...         testN.metadata['has_something'] = 'Y'
+...     elif x%10==0:
+...         testN.metadata['has_something'] = 'N'
+>>> TestMetaData.objects.filter(metadata__name='has_something', metadata__value='Y').count()
+10
+>>> TestMetaData.objects.filter(metadata__name='has_something', metadata__value='N').count()
+2
+>>> TestMetaData.objects.filter(metadata__name='has_something').count()
+12
 """}
 

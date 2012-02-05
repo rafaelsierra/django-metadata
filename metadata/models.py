@@ -20,7 +20,6 @@ class MetaDataManager(models.Manager):
             metadata.save()
         except MetaData.DoesNotExist, e:
             metadata = self.instance.metadata.create(name=key, value=value)
-        return metadata
 
 
     def __contains__(self, key):

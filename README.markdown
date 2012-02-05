@@ -58,13 +58,13 @@ Now `manage.py syncdb` your project to create metadata models and have fun using
 ```python
 from myapp.models import MyModel
 mymodel = MyModel.objects.get(id=1)
-mymodel.metadata.create(name='something', value='some value')
+mymodel.metadata['something'] = 'some value'
 mymodel.metadata['something']
 ```
 
 Note that `name` and `value` have a limit of 256 characteres, this is to increase performance and allow any database to index it ([PostgreSQL have limit](http://wiki.postgresql.org/wiki/FAQ#What_is_the_maximum_size_for_a_row.2C_a_table.2C_and_a_database.3F) on the size of a VARCHAR field to index it)
 
-metadata manager objects are read-only dict like objects, and implements `__getitem__`, `iterkeys`, `keys`, `itervalues`, `values`, `iteritems` and `items`, so you can use them at templates by doing some thing like:
+metadata manager objects are dict like objects, and implements `__setitem__`, `__getitem__`, `iterkeys`, `keys`, `itervalues`, `values`, `iteritems` and `items`, so you can use them at templates by doing some thing like:
 ```
 {% if mymodel.metadata.something %}
 ```
@@ -74,9 +74,6 @@ So it will check if `mymodel` object has the metadata `something` into it
 
 This is not a replacement for fields into models, you should use it when some records have some data that other records (in the same table) have not.
 
-Works with Django:
-
-* 1.0.x
-* 1.1.x
-* 1.2.x
-* 1.3.x
+As it's a very simple model with basic usage of GenericRelations and
+Manager objects, it works pretty much with all 1.x versions of Django
+(so far)
