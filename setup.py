@@ -6,7 +6,7 @@ setup(
     url='https://github.com/rafaelsdm/django-metadata',
     author='Rafael Sierra',
     author_email='eu@rafaelsdm.com',
-    license='Free Use'
+    license='Free Use',
     packages=['metadata'],
     include_package_data=True,
     description='This is a simple addon to your models, with this package you can add metadata to any of your models',
