@@ -1,3 +1,4 @@
+# TODO: TestCases
 __test__ = {"doctest": """
 To test metadata we use metadata.testapp, so you must have it in
 your INSTALLED_APPS
@@ -33,7 +34,8 @@ plurk_user = pathiene
 twitter_screen_name = rafaelsdm
 
 >>> test.metadata['setitem'] = 'also works'
->>> test.metadata['setitem']
+>>> sametest = TestMetaData.objects.get(id=test.id)
+>>> sametest.metadata['setitem']
 u'also works'
 
 You can even get objects with an specific metadata information
