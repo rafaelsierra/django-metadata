@@ -1,4 +1,13 @@
-# TODO: TestCases
+# -*- coding: utf-8 -*-
+
+from django.test.testcases import TestCase
+from metadata.testapp.models import TestMetaData
+from django.template import Template
+from django.template.context import Context
+
+#
+# TODO: Move to TestCases
+#
 __test__ = {"doctest": """
 To test metadata we use metadata.testapp, so you must have it in
 your INSTALLED_APPS
@@ -54,3 +63,30 @@ You can even get objects with an specific metadata information
 12
 """}
 
+class TestFixingIssue3(TestCase):
+    def setUp(self):
+        self.someitem = TestMetaData(foo='a')
+        self.someitem.save()
+        
+    def test_loop_with_1_metadata(self):
+        self.someitem.metadata['foo'] = 'bar'
+        self.assertEqual(self.someitem.metadata.items(), [('foo', 'bar'),])
+        
+    def test_loop_with_10_metadata(self):
+        for x in xrange(10):
+            v = '{:02}'.format(x)
+            self.someitem.metadata[v] = v
+        self.assertEqual(len(self.someitem.metadata.items()), 10)
+
+    def test_loop_within_template(self):
+        self.test_loop_with_10_metadata()
+        template = Template(u'''
+            {% for key, value in someitem.metadata %}{{key}}:{{value}}{% endfor %}
+        '''.strip())
+        context = Context({'someitem':self.someitem})
+        result = template.render(context)
+        
+        expected = u''.join('{0:02}:{0:02}'.format(x) for x in xrange(10))
+
+        self.assertEqual(result, expected)
+        

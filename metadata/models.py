@@ -21,7 +21,6 @@ class MetaDataManager(models.Manager):
         except MetaData.DoesNotExist, e:
             metadata = self.instance.metadata.create(name=key, value=value)
 
-
     def __contains__(self, key):
         try:
             if not self[key] is None:
@@ -30,6 +29,9 @@ class MetaDataManager(models.Manager):
                 return False
         except IndexError,e:
             return False
+        
+    def __iter__(self):
+        return self.iteritems()
 
     def iterkeys(self):
         for metadata in self.get_query_set().order_by('name'):
@@ -53,6 +55,7 @@ class MetaDataManager(models.Manager):
 
     def items(self):
         return list(self.iteritems())
+
 
 class MetaData(models.Model):
     name = models.CharField(max_length=256, db_index=True)
